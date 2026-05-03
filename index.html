@@ -413,16 +413,16 @@
 <body>
   <header class="wrap hero">
     <div>
-      <div class="eyebrow">2026-05-04 / スタッフPC実装用</div>
+      <div class="eyebrow">2026-05-04 / 夏目さんPC実装用</div>
       <h1>夏目さんがCodexで自律実行するための運用引き継ぎ</h1>
       <p class="lead">
         目的は、SNS運用・AIマーケ講座サポート・広告運用を「タスクを見て、Codexで進めて、Skillを改善し、Automationまで整える」状態にすること。
-        この資料は説明書ではなく、スタッフPCでそのまま実行する運用手順です。
+        この資料は説明書ではなく、夏目さんのPCでそのまま実行する運用手順です。
       </p>
       <div class="callout success">
         <strong>共有方法:</strong>
         <a href="https://starriver0513.github.io/prosolv-natsume-codex-manual-20260504/">GitHub Pages公開版</a>
-        を夏目さんに送ってください。ローカルファイルではなく、相手のPCからブラウザで開けるページとして見られます。
+        を夏目さんに送ってください。ローカルファイルではなく、夏目さんのPCからブラウザで開けるページとして見られます。
       </div>
       <div class="hero-actions">
         <a class="button primary" href="#first">最初にやること</a>
@@ -475,7 +475,7 @@
         </div>
         <div class="card">
           <h3>3. Automation整備</h3>
-          <p>スタッフPCのCodexにもroutine/Automationを設定し、毎週の確認と日次のSNSリサーチが止まらない状態にする。</p>
+          <p>夏目さんのPCのCodexにもroutine/Automationを設定し、週次報告と日次のSNSリサーチが止まらない状態にする。</p>
         </div>
       </div>
     </section>
@@ -484,19 +484,19 @@
       <div class="section-head">
         <div class="section-number">First Setup</div>
         <div>
-          <h2>スタッフPCで最初にやること</h2>
-          <p>Syncthingで同期されていても、Codexのローカル設定とAutomationはスタッフPC側で別途確認が必要です。</p>
+          <h2>夏目さんのPCで最初にやること</h2>
+          <p>Syncthingでプロジェクトが同期されていても、Codexのローカル設定とAutomationは夏目さんのPC側で別途確認が必要です。</p>
         </div>
       </div>
       <div class="flow">
-        <div class="flow-step"><b>01</b>同期ルート確認<br><code>⭐️AIフォルダ_Prosolv</code> がスタッフPCにあるか見る</div>
+        <div class="flow-step"><b>01</b>同期ルート確認<br><code>⭐️AIフォルダ_Prosolv</code> が夏目さんのPCにあるか見る</div>
         <div class="flow-step"><b>02</b>Codexで開く<br>同期フォルダを作業ディレクトリとして開く</div>
-        <div class="flow-step"><b>03</b>正本を読む<br><code>CLAUDE.md</code> / <code>directory.md</code> / <code>タスク管理ルール.md</code></div>
+        <div class="flow-step"><b>03</b>正本を読む<br><code>CODEX.md</code> / <code>directory.md</code> / <code>タスク管理ルール.md</code></div>
         <div class="flow-step"><b>04</b>タスクを見る<br><code>📦事業部/*/タスク.md</code> から自分の担当を確認</div>
         <div class="flow-step"><b>05</b>動かす<br>Skill改善・Automation設定・出力先テストまで実施</div>
       </div>
       <div class="callout">
-        <strong>スタッフPCでの前提:</strong>
+        <strong>夏目さんのPCでの前提:</strong>
         <code>~/.codex/automations/</code> はPCごとのローカル設定です。Syncthingでプロジェクトが同期されても、Codex Automationは自動では移りません。
       </div>
     </section>
@@ -514,14 +514,15 @@
           <tr><th>用途</th><th>正本パス</th><th>見る理由</th></tr>
         </thead>
         <tbody>
-          <tr><td>全体ルール</td><td><code>CLAUDE.md</code></td><td>Codex/Claudeが最初に読む運用ディスパッチャー。</td></tr>
+          <tr><td>Codex運用ルール</td><td><code>CODEX.md</code></td><td>Codexが最初に読む運用ディスパッチャー。判断・保存・実行の起点。</td></tr>
+          <tr><td>Codex入口</td><td><code>AGENTS.md</code></td><td>このフォルダをCodexで開いた時の入口。通常は自動で効くが、挙動確認時に見る。</td></tr>
           <tr><td>保存先判断</td><td><code>directory.md</code></td><td>成果物をどの事業部に置くかの最終判断。</td></tr>
           <tr><td>タスク運用</td><td><code>タスク管理ルール.md</code></td><td>タスクは事業部直下の <code>タスク.md</code> に集約する。</td></tr>
           <tr><td>SNS</td><td><code>📦事業部/SNS事業部/タスク.md</code></td><td>X / Threads / Instagram / YouTube / Typefully / リサーチ。</td></tr>
           <tr><td>講座/CS</td><td><code>📦事業部/プロダクト事業部/タスク.md</code></td><td>AIマーケ講座、受講生対応、特典、講座コンテンツ。</td></tr>
           <tr><td>LINE/ローンチ</td><td><code>📦事業部/リストマーケ事業部/タスク.md</code></td><td>LINE、オプチャ、ローンチ、配信導線。</td></tr>
-          <tr><td>Codex/Skill/Automation</td><td><code>📦事業部/AI活用事業部/タスク.md</code></td><td>スタッフPC設定、API、MCP、Automation、システム改善。</td></tr>
-          <tr><td>横断管理</td><td><code>📦事業部/経営企画/タスク.md</code></td><td>スタッフ展開、オフライン作業会、全社横断ルール。</td></tr>
+          <tr><td>Codex/Skill/Automation</td><td><code>📦事業部/AI活用事業部/タスク.md</code></td><td>夏目さんPC設定、API、MCP、Automation、システム改善。</td></tr>
+          <tr><td>横断管理</td><td><code>📦事業部/経営企画/タスク.md</code></td><td>運用展開、オフライン作業会、全社横断ルール。</td></tr>
         </tbody>
       </table>
     </section>
@@ -562,7 +563,7 @@
         <div class="section-number">Report</div>
         <div>
           <h2>夏目さんが毎週報告すること</h2>
-          <p>星川側の内部管理はこの資料には載せません。夏目さんは、毎週の成果物と詰まりを1つの報告にまとめて提出してください。</p>
+          <p>毎週の成果物、詰まり、変更内容、星川さんに確認したいことを1つの報告にまとめて提出してください。</p>
         </div>
       </div>
       <div class="timeline">
@@ -634,7 +635,7 @@
         <div class="card">
           <h3>直近フィードバック</h3>
           <ul>
-            <li>Claude.mdネタの繰り返しを避ける。</li>
+            <li>CODEX.mdネタの繰り返しを避ける。</li>
             <li>「主張の前に実績」の数字パターンを増やす。</li>
             <li>丁寧すぎる句点+改行で機械感を出さない。</li>
             <li>星川さんの殴り書き感、口癖、過去Xナレッジを反映する。</li>
@@ -661,17 +662,17 @@
       <div class="section-head">
         <div class="section-number">Automation</div>
         <div>
-          <h2>Codex AutomationのスタッフPC設定</h2>
-          <p>AutomationはPCごとのローカル設定です。スタッフPCで再作成または同等設定を入れる必要があります。</p>
+          <h2>Codex Automationの夏目さんPC設定</h2>
+          <p>AutomationはPCごとのローカル設定です。夏目さんのPCで再作成または同等設定を入れる必要があります。</p>
         </div>
       </div>
       <table>
-        <thead><tr><th>ID</th><th>目的</th><th>スタッフPCで確認すること</th></tr></thead>
+        <thead><tr><th>ID</th><th>目的</th><th>夏目さんのPCで確認すること</th></tr></thead>
         <tbody>
           <tr>
             <td><code>sns</code></td>
             <td>SNSリサーチ企画提案を毎日更新。IG / YouTube / X のリサーチ、企画提案、採用候補、撮影カレンダーへ接続。</td>
-            <td>スタッフPCの同期フォルダパスに置き換える。APIキーとGoogle Sheets権限を確認。</td>
+            <td>夏目さんのPCの同期フォルダパスに置き換える。APIキーとGoogle Sheets権限を確認。</td>
           </tr>
           <tr>
             <td><code>x-daily-harvest</code></td>
@@ -686,8 +687,8 @@
         </tbody>
       </table>
       <div class="callout">
-        <strong>スタッフPCの作業:</strong>
-        <code>~/.codex/automations/</code> を確認し、存在しないAutomationはCodexのAutomation設定で再作成する。パスは必ずスタッフPC上の同期フォルダに置き換える。
+        <strong>夏目さんのPCでの作業:</strong>
+        <code>~/.codex/automations/</code> を確認し、存在しないAutomationはCodexのAutomation設定で再作成する。パスは必ず夏目さんのPC上の同期フォルダに置き換える。
       </div>
     </section>
 
@@ -695,8 +696,8 @@
       <div class="section-head">
         <div class="section-number">Prompt</div>
         <div>
-          <h2>スタッフがCodexに最初に貼るプロンプト</h2>
-          <p>スタッフPCでこのまま貼って、現行状態の診断から始める。</p>
+          <h2>夏目さんがCodexに最初に貼るプロンプト</h2>
+          <p>夏目さんのPCでこのまま貼って、現行状態の診断から始める。</p>
         </div>
       </div>
       <pre>ゴール:
@@ -704,7 +705,7 @@
 特に、Skill改善とCodex Automation設定まで終わらせる。
 
 最初に必ず読む:
-1. `CLAUDE.md`
+1. `CODEX.md`
 2. `directory.md`
 3. `タスク管理ルール.md`
 4. `📦事業部/SNS事業部/タスク.md`
@@ -734,15 +735,15 @@
         <div class="section-number">Definition of Done</div>
         <div>
           <h2>やり切った判定</h2>
-          <p>「理解しました」では終わりません。スタッフPC上で次のチェックが通れば完了です。</p>
+          <p>「理解しました」では終わりません。夏目さんのPC上で次のチェックが通れば完了です。</p>
         </div>
       </div>
       <ul class="checklist">
-        <li><strong>Syncthing:</strong> スタッフPCで <code>⭐️AIフォルダ_Prosolv</code> が開ける。</li>
+        <li><strong>Syncthing:</strong> 夏目さんのPCで <code>⭐️AIフォルダ_Prosolv</code> が開ける。</li>
         <li><strong>Codex:</strong> 同期フォルダを作業ディレクトリとして開き、正本ファイルを読める。</li>
         <li><strong>週次報告:</strong> 成果物URL、変更ファイル、テスト結果、星川確認待ちを1つの報告にまとめられる。</li>
         <li><strong>Skill:</strong> X長文・X記事・Threads・Typefully系の少なくとも1つで、改善差分とテスト出力がある。</li>
-        <li><strong>Automation:</strong> スタッフPCの <code>~/.codex/automations/</code> を確認し、不足分の作成/修正方針が出ている。</li>
+        <li><strong>Automation:</strong> 夏目さんのPCの <code>~/.codex/automations/</code> を確認し、不足分の作成/修正方針が出ている。</li>
         <li><strong>旧パスなし:</strong> 新しい出力が旧D番号・アーカイブ・過去フォルダに落ちていない。</li>
         <li><strong>報告:</strong> 完了/未完了/ブロッカー/次アクションが週次報告で共有されている。</li>
       </ul>
