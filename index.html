@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>夏目さん向け Codex運用引き継ぎ</title>
+  <style>
+    :root {
+      --bg: #f7f4ff;
+      --ink: #1d1730;
+      --muted: #665b7a;
+      --line: #ded3f8;
+      --panel: #ffffff;
+      --panel-2: #fbf9ff;
+      --purple: #6f35f2;
+      --pink: #e64693;
+      --blue: #2563eb;
+      --green: #108a5b;
+      --amber: #b7791f;
+      --red: #c53030;
+      --shadow: 0 18px 50px rgba(61, 28, 115, .12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "YuGothic", "Noto Sans JP", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(111, 53, 242, .14), transparent 34rem),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 34rem, #fff 100%);
+      line-height: 1.75;
+      letter-spacing: 0;
+    }
+
+    a { color: var(--purple); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 86vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
+      gap: 42px;
+      align-items: center;
+      padding: 42px 0 32px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .75);
+      color: var(--purple);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 18px 0 16px;
+      font-size: clamp(36px, 6vw, 76px);
+      line-height: 1.04;
+      letter-spacing: 0;
+      max-width: 920px;
+    }
+
+    .lead {
+      max-width: 760px;
+      font-size: 18px;
+      color: #322744;
+      margin: 0 0 26px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      font-weight: 800;
+      box-shadow: 0 8px 24px rgba(61, 28, 115, .08);
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .status-board {
+      background: rgba(255,255,255,.9);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .status-board h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-2);
+      padding: 14px;
+      min-height: 112px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(222, 211, 248, .65);
+      border-bottom: 1px solid rgba(222, 211, 248, .9);
+    }
+
+    .nav-inner {
+      display: flex;
+      overflow-x: auto;
+      gap: 8px;
+      padding: 10px 0;
+      scrollbar-width: thin;
+    }
+
+    .nav-inner a {
+      white-space: nowrap;
+      padding: 8px 11px;
+      border-radius: 999px;
+      color: #3b2a5f;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .nav-inner a:hover {
+      background: #f1ebff;
+      text-decoration: none;
+    }
+
+    main { padding: 36px 0 80px; }
+
+    section {
+      padding: 42px 0;
+      border-bottom: 1px solid #eee7fb;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      gap: 30px;
+      margin-bottom: 22px;
+      align-items: start;
+    }
+
+    .section-number {
+      color: var(--purple);
+      font-weight: 900;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: clamp(26px, 3vw, 38px);
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(61, 28, 115, .06);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .card p, .card li {
+      color: #3d334f;
+      font-size: 14px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      background: #f1ebff;
+      color: var(--purple);
+      margin: 0 6px 8px 0;
+    }
+
+    .tag.green { background: #e9f8f1; color: var(--green); }
+    .tag.amber { background: #fff6db; color: var(--amber); }
+    .tag.red { background: #fff0f0; color: var(--red); }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin: 24px 0 4px;
+      align-items: stretch;
+    }
+
+    .flow-step {
+      position: relative;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      min-height: 124px;
+    }
+
+    .flow-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -13px;
+      top: 42%;
+      color: var(--purple);
+      font-weight: 900;
+      z-index: 1;
+    }
+
+    .flow-step b {
+      display: block;
+      color: var(--purple);
+      margin-bottom: 6px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .time-row {
+      display: grid;
+      grid-template-columns: 118px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .time-row .time {
+      color: var(--purple);
+      font-weight: 900;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(61, 28, 115, .06);
+    }
+
+    th, td {
+      border-bottom: 1px solid #eee7fb;
+      padding: 13px 14px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    th {
+      color: #3b2a5f;
+      background: #f4efff;
+      font-weight: 900;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    code, pre {
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+    }
+
+    code {
+      background: #f4efff;
+      color: #4a1db7;
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-size: .92em;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      background: #151123;
+      color: #f7f2ff;
+      border-radius: 8px;
+      padding: 18px;
+      line-height: 1.65;
+      border: 1px solid #33275a;
+      font-size: 13px;
+    }
+
+    .callout {
+      border-left: 5px solid var(--purple);
+      background: #fbf9ff;
+      padding: 16px 18px;
+      border-radius: 8px;
+      border-top: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .danger { border-left-color: var(--red); }
+    .success { border-left-color: var(--green); }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    footer {
+      padding: 28px 0 48px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .section-head,
+      .grid,
+      .grid.two,
+      .flow {
+        grid-template-columns: 1fr;
+      }
+      .hero { min-height: auto; padding-top: 32px; }
+      .flow-step:not(:last-child)::after { display: none; }
+      .metric-grid { grid-template-columns: 1fr; }
+      .time-row { grid-template-columns: 1fr; }
+      th, td { display: block; width: 100%; }
+      th { border-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap hero">
+    <div>
+      <div class="eyebrow">2026-05-04 / スタッフPC実装用</div>
+      <h1>夏目さんがCodexで自律実行するための運用引き継ぎ</h1>
+      <p class="lead">
+        目的は、SNS運用・AIマーケ講座サポート・広告運用を「タスクを見て、Codexで進めて、Skillを改善し、Automationまで整える」状態にすること。
+        この資料は説明書ではなく、スタッフPCでそのまま実行する運用手順です。
+      </p>
+      <div class="callout success">
+        <strong>共有方法:</strong>
+        GitHub Pagesで公開したHTML URLを夏目さんに送ってください。ローカルファイルではなく、相手のPCからブラウザで開けるページとして見られます。
+      </div>
+      <div class="hero-actions">
+        <a class="button primary" href="#first">最初にやること</a>
+        <a class="button" href="#report">週次報告</a>
+        <a class="button" href="#prompt">Codex投入プロンプト</a>
+      </div>
+    </div>
+    <aside class="status-board" aria-label="運用ステータス">
+      <h2>今回の実装状況</h2>
+      <div class="metric-grid">
+        <div class="metric"><strong>本人作業</strong><span>夏目さんが実行する内容だけに整理</span></div>
+        <div class="metric"><strong>7事業部</strong><span>現行の正本構造に合わせて説明</span></div>
+        <div class="metric"><strong>週次報告</strong><span>成果物URL・詰まり・次アクションを提出</span></div>
+        <div class="metric"><strong>旧パス禁止</strong><span>Skill / routineの出力先を現行ルールへ統一</span></div>
+      </div>
+    </aside>
+  </header>
+
+  <nav>
+    <div class="wrap nav-inner">
+      <a href="#goal">ゴール</a>
+      <a href="#first">初回セットアップ</a>
+      <a href="#map">構造マップ</a>
+      <a href="#scope">業務範囲</a>
+      <a href="#report">週次報告</a>
+      <a href="#skill">Skill改善</a>
+      <a href="#automation">Automation</a>
+      <a href="#prompt">投入プロンプト</a>
+      <a href="#done">完了条件</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section id="goal">
+      <div class="section-head">
+        <div class="section-number">Goal</div>
+        <div>
+          <h2>ゴール設計</h2>
+          <p>夏目さんが「何を見ればいいか分からない」「Skillやroutineが古い場所を見ている」「Automationが自分のPCで動かない」を解消する。</p>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>1. 自律実行</h3>
+          <p>LINEラリー、事業部タスク、成果物フォルダを見て、SNS/講座/広告の次アクションを自分で切り出し、Codexに実行させる。</p>
+        </div>
+        <div class="card">
+          <h3>2. Skill改善</h3>
+          <p>出力が薄い、古いパスに保存される、文体が機械的などの問題を、Skill本体とセルフチェックに反映する。</p>
+        </div>
+        <div class="card">
+          <h3>3. Automation整備</h3>
+          <p>スタッフPCのCodexにもroutine/Automationを設定し、毎週の確認と日次のSNSリサーチが止まらない状態にする。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="first">
+      <div class="section-head">
+        <div class="section-number">First Setup</div>
+        <div>
+          <h2>スタッフPCで最初にやること</h2>
+          <p>Syncthingで同期されていても、Codexのローカル設定とAutomationはスタッフPC側で別途確認が必要です。</p>
+        </div>
+      </div>
+      <div class="flow">
+        <div class="flow-step"><b>01</b>同期ルート確認<br><code>⭐️AIフォルダ_Prosolv</code> がスタッフPCにあるか見る</div>
+        <div class="flow-step"><b>02</b>Codexで開く<br>同期フォルダを作業ディレクトリとして開く</div>
+        <div class="flow-step"><b>03</b>正本を読む<br><code>CLAUDE.md</code> / <code>directory.md</code> / <code>タスク管理ルール.md</code></div>
+        <div class="flow-step"><b>04</b>タスクを見る<br><code>📦事業部/*/タスク.md</code> から自分の担当を確認</div>
+        <div class="flow-step"><b>05</b>動かす<br>Skill改善・Automation設定・出力先テストまで実施</div>
+      </div>
+      <div class="callout">
+        <strong>スタッフPCでの前提:</strong>
+        <code>~/.codex/automations/</code> はPCごとのローカル設定です。Syncthingでプロジェクトが同期されても、Codex Automationは自動では移りません。
+      </div>
+    </section>
+
+    <section id="map">
+      <div class="section-head">
+        <div class="section-number">Map</div>
+        <div>
+          <h2>見に行く場所の正本</h2>
+          <p>旧D番号やアーカイブではなく、現行の7事業部構造を正本にします。</p>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr><th>用途</th><th>正本パス</th><th>見る理由</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>全体ルール</td><td><code>CLAUDE.md</code></td><td>Codex/Claudeが最初に読む運用ディスパッチャー。</td></tr>
+          <tr><td>保存先判断</td><td><code>directory.md</code></td><td>成果物をどの事業部に置くかの最終判断。</td></tr>
+          <tr><td>タスク運用</td><td><code>タスク管理ルール.md</code></td><td>タスクは事業部直下の <code>タスク.md</code> に集約する。</td></tr>
+          <tr><td>SNS</td><td><code>📦事業部/SNS事業部/タスク.md</code></td><td>X / Threads / Instagram / YouTube / Typefully / リサーチ。</td></tr>
+          <tr><td>講座/CS</td><td><code>📦事業部/プロダクト事業部/タスク.md</code></td><td>AIマーケ講座、受講生対応、特典、講座コンテンツ。</td></tr>
+          <tr><td>LINE/ローンチ</td><td><code>📦事業部/リストマーケ事業部/タスク.md</code></td><td>LINE、オプチャ、ローンチ、配信導線。</td></tr>
+          <tr><td>Codex/Skill/Automation</td><td><code>📦事業部/AI活用事業部/タスク.md</code></td><td>スタッフPC設定、API、MCP、Automation、システム改善。</td></tr>
+          <tr><td>横断管理</td><td><code>📦事業部/経営企画/タスク.md</code></td><td>スタッフ展開、オフライン作業会、全社横断ルール。</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="scope">
+      <div class="section-head">
+        <div class="section-number">Scope</div>
+        <div>
+          <h2>夏目さんに任せる業務範囲</h2>
+          <p>単なる制作担当ではなく、AIで仕組み化して毎月安定達成する運用責任者として扱います。</p>
+        </div>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <h3>SNSのAI化サポート</h3>
+          <ul>
+            <li>X: 記事毎日投稿、長文1日2本。</li>
+            <li>Threads: 長文1日3本。</li>
+            <li>Instagram: フィード毎日、リール月10本、ストーリーズ毎日。</li>
+            <li>YouTube: 月4本の本気動画。企画、台本、撮影サポート、編集ディレクション。</li>
+            <li>YouTube企画: API/リアルタイムリサーチで2週間に1回10案を作成し、星川さんへ提案。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>AIマーケ講座のサポート</h3>
+          <ul>
+            <li>マーケティング/ローンチ: セミナー、特典、星川さんローンチ、おさるさんローンチ。</li>
+            <li>サポート/運営: Chatwork、オプチャ配信、オフ会サポート。</li>
+            <li>アンバサダー/特別講師管理。</li>
+            <li>広告: 公式LINE導線、広告運用、予算管理、CR月10本、おさるさん撮影手引き。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="report">
+      <div class="section-head">
+        <div class="section-number">Report</div>
+        <div>
+          <h2>夏目さんが毎週報告すること</h2>
+          <p>星川側の内部管理はこの資料には載せません。夏目さんは、毎週の成果物と詰まりを1つの報告にまとめて提出してください。</p>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="time-row"><div class="time">毎週</div><div><strong>成果物URLをまとめる</strong><br>X / Threads / Instagram / YouTube / 講座 / 広告で作成した投稿、Docs、Drive、Typefully、スプレッドシートをURLで提出。</div></div>
+        <div class="time-row"><div class="time">毎週</div><div><strong>詰まりを明確にする</strong><br>権限、API、素材、判断待ち、撮影待ち、編集待ちを分けて書く。</div></div>
+        <div class="time-row"><div class="time">毎週</div><div><strong>Skill/Automation差分を出す</strong><br>直したSkill名、変更内容、テスト出力、まだ動いていないAutomationを報告。</div></div>
+        <div class="time-row"><div class="time">オフライン作業会</div><div><strong>その場で進めるものを持ち込む</strong><br>詰まった設定、権限確認、API接続、Skill修正、投稿作成、YouTube企画をまとめて進める。</div></div>
+      </div>
+      <div class="callout success">
+        <strong>報告の原則:</strong> 「やりました」ではなく、成果物URL・変更ファイル・テスト結果・星川確認待ちをセットで出す。
+      </div>
+      <div class="copy-block">
+        <h3>夏目さんが送る週次報告フォーマット</h3>
+        <pre>【週次報告】
+1. 今週完了したこと
+- SNS:
+- AIマーケ講座:
+- 広告/LINE/CR:
+- Skill/Automation:
+
+2. 成果物URL
+- 投稿URL:
+- Drive/Docs:
+- Typefully:
+- スプレッドシート:
+
+3. 投稿/制作本数
+- X記事:
+- X長文:
+- Threads長文:
+- IGフィード/リール/ストーリーズ:
+- YouTube:
+
+4. Skill改善
+- 改善したSkill名:
+- 変更した内容:
+- テスト結果:
+
+5. Codex/Automation
+- 動いたAutomation:
+- 止まった箇所:
+- 旧フォルダに出力されたものがあれば:
+
+6. 詰まり
+- 星川確認待ち:
+- 権限/API/素材待ち:
+- オフライン作業会で一緒に進めたいこと:
+
+7. 次にやること
+- 明日やること:
+- 今週中に終わらせること:</pre>
+      </div>
+    </section>
+
+    <section id="skill">
+      <div class="section-head">
+        <div class="section-number">Skill</div>
+        <div>
+          <h2>Skill改善のルール</h2>
+          <p>LINEラリーで出ている課題は、X長文・X記事・Threads・Typefully周りのSkillとroutineに反映する。</p>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>改善対象</h3>
+          <p><span class="tag">X長文</span><span class="tag">X記事</span><span class="tag">Threads</span><span class="tag">Typefully</span><span class="tag">リサーチ保存</span></p>
+          <p>特に <code>x-long-post</code> 相当、X記事、Threads長文、Typefully予約投稿、ナレッジスクレイピングを優先。</p>
+        </div>
+        <div class="card">
+          <h3>直近フィードバック</h3>
+          <ul>
+            <li>Claude.mdネタの繰り返しを避ける。</li>
+            <li>「主張の前に実績」の数字パターンを増やす。</li>
+            <li>丁寧すぎる句点+改行で機械感を出さない。</li>
+            <li>星川さんの殴り書き感、口癖、過去Xナレッジを反映する。</li>
+            <li>セルフチェックを厚くして、すぐ真似できる要素を入れる。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>完了条件</h3>
+          <ul>
+            <li>Skill本体を変更した。</li>
+            <li>出力先が現行フォルダになっている。</li>
+            <li>テスト出力を1本以上作った。</li>
+            <li>旧パス出力がないことを確認した。</li>
+            <li>変更内容とテスト結果を週次報告にまとめた。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout danger">
+        <strong>禁止:</strong> routineやSkillが古い <code>旧D番号</code>、<code>01_現活性事業部</code>、アーカイブ配下に出力する状態のまま運用しない。
+      </div>
+    </section>
+
+    <section id="automation">
+      <div class="section-head">
+        <div class="section-number">Automation</div>
+        <div>
+          <h2>Codex AutomationのスタッフPC設定</h2>
+          <p>AutomationはPCごとのローカル設定です。スタッフPCで再作成または同等設定を入れる必要があります。</p>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>ID</th><th>目的</th><th>スタッフPCで確認すること</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>sns</code></td>
+            <td>SNSリサーチ企画提案を毎日更新。IG / YouTube / X のリサーチ、企画提案、採用候補、撮影カレンダーへ接続。</td>
+            <td>スタッフPCの同期フォルダパスに置き換える。APIキーとGoogle Sheets権限を確認。</td>
+          </tr>
+          <tr>
+            <td><code>x-daily-harvest</code></td>
+            <td>X神ポスト daily harvest。SocialData/APIを使い、検索ワード別に高反応投稿を保存。</td>
+            <td>API残高、スクリプト存在、出力先が <code>SNS事業部/X</code> 側か確認。</td>
+          </tr>
+          <tr>
+            <td><code>x</code></td>
+            <td>Xブックマークを一次情報ナレッジ化。</td>
+            <td>旧 <code>.claude/skills</code> 参照ではなく、現行のXナレッジ保存先を見るようにする。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <strong>スタッフPCの作業:</strong>
+        <code>~/.codex/automations/</code> を確認し、存在しないAutomationはCodexのAutomation設定で再作成する。パスは必ずスタッフPC上の同期フォルダに置き換える。
+      </div>
+    </section>
+
+    <section id="prompt">
+      <div class="section-head">
+        <div class="section-number">Prompt</div>
+        <div>
+          <h2>スタッフがCodexに最初に貼るプロンプト</h2>
+          <p>スタッフPCでこのまま貼って、現行状態の診断から始める。</p>
+        </div>
+      </div>
+      <pre>ゴール:
+このPCで、星川さんとSyncthing同期している `⭐️AIフォルダ_Prosolv` を正本として開き、SNS運用・AIマーケ講座サポート・広告運用を自律実行できる状態にする。
+特に、Skill改善とCodex Automation設定まで終わらせる。
+
+最初に必ず読む:
+1. `CLAUDE.md`
+2. `directory.md`
+3. `タスク管理ルール.md`
+4. `📦事業部/SNS事業部/タスク.md`
+5. `📦事業部/プロダクト事業部/タスク.md`
+6. `📦事業部/リストマーケ事業部/タスク.md`
+7. `📦事業部/AI活用事業部/タスク.md`
+8. `📦事業部/経営企画/タスク.md`
+
+診断してほしいこと:
+- このPCの同期フォルダパスが正しいか
+- Skillが現行フォルダを参照しているか
+- routine / Codex Automation が旧パスを参照していないか
+- X長文、X記事、Threads、Typefully、SNSリサーチの出力先が正しいか
+- 週次報告で、成果物URL・変更ファイル・星川確認待ちを出せるか
+
+実行してほしいこと:
+1. 旧パス参照を洗い出す
+2. 必要なSkill改善案を出す
+3. すぐ直せるSkillは直す
+4. Automation設定の不足を洗い出す
+5. テスト出力を作る
+6. 最後に「完了したこと / 未完了 / 星川確認待ち / 次の週次報告文」を出す</pre>
+    </section>
+
+    <section id="done">
+      <div class="section-head">
+        <div class="section-number">Definition of Done</div>
+        <div>
+          <h2>やり切った判定</h2>
+          <p>「理解しました」では終わりません。スタッフPC上で次のチェックが通れば完了です。</p>
+        </div>
+      </div>
+      <ul class="checklist">
+        <li><strong>Syncthing:</strong> スタッフPCで <code>⭐️AIフォルダ_Prosolv</code> が開ける。</li>
+        <li><strong>Codex:</strong> 同期フォルダを作業ディレクトリとして開き、正本ファイルを読める。</li>
+        <li><strong>週次報告:</strong> 成果物URL、変更ファイル、テスト結果、星川確認待ちを1つの報告にまとめられる。</li>
+        <li><strong>Skill:</strong> X長文・X記事・Threads・Typefully系の少なくとも1つで、改善差分とテスト出力がある。</li>
+        <li><strong>Automation:</strong> スタッフPCの <code>~/.codex/automations/</code> を確認し、不足分の作成/修正方針が出ている。</li>
+        <li><strong>旧パスなし:</strong> 新しい出力が旧D番号・アーカイブ・過去フォルダに落ちていない。</li>
+        <li><strong>報告:</strong> 完了/未完了/ブロッカー/次アクションが週次報告で共有されている。</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    ローカル保存先:
+    <code>🌐共通ナレッジ/📌共通ナレッジ/引き継ぎ_レポート/2026-05-04_夏目さん_Codex運用引き継ぎ.html</code>
+  </footer>
+</body>
+</html>
